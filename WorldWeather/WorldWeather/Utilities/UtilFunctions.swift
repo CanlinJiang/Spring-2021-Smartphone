@@ -22,9 +22,16 @@ func getCurrentConditionURL(_ cityKey : String) -> String{
     return url
 }
 
-func getOneDayURL(_ cityKey : String) -> String {
+func getOneDayForecastsURL(_ cityKey : String) -> String {
     var url = oneDayURL
     url.append(cityKey)
+    url.append("?apikey=\(apiKey)")
+    return url
+}
+
+func getFiveDaysForecastsUrl(_ key: String) -> String {
+    var url = fiveDaysForecastsReferer
+    url.append(key)
     url.append("?apikey=\(apiKey)")
     return url
 }

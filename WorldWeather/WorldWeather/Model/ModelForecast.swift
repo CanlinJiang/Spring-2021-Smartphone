@@ -7,13 +7,13 @@
 
 import Foundation
 
-class ModelOneDayForecast{
+class ModelForecast{
     var headlineText = ""
-    var nightTemp = 0
-    var dayTemp = 0
+    var date = ""
+    var minimumTemperature = 0
+    var maximumTemperature = 0
     var dayIcon = 0
     var nightIcon = 0
     var dayIconPhrase = ""
     var nightIconPhrase = ""
-
 }

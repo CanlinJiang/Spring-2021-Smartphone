@@ -33,7 +33,7 @@ class WorldWeatherViewModel{
         return Promise<ModelCurrentCondition> { seal ->Void in
             
             getAFResponseJSONArray(url).done { currentWeatherJSON in
-                
+//                print(currentWeatherJSON)
                 let weatherText = currentWeatherJSON[0]["WeatherText"].stringValue
                 let weatherIcon = currentWeatherJSON[0]["WeatherIcon"].intValue
                 let isDayTime = currentWeatherJSON[0]["IsDayTime"].boolValue
@@ -55,15 +55,15 @@ class WorldWeatherViewModel{
         }
     }
     
-    func getOneDayConditions(_ url : String) -> Promise<ModelOneDayForecast>{
-        return Promise<ModelOneDayForecast> { seal -> Void in
+    func getOneDayForecasts(_ url : String) -> Promise<ModelForecast>{
+        return Promise<ModelForecast> { seal -> Void in
             
             getAFResponseJSON(url).done { json in
                 
-                let dayForecast = ModelOneDayForecast()
+                let dayForecast = ModelForecast()
                 dayForecast.headlineText = json["Headline"]["Text"].stringValue
-                dayForecast.nightTemp = json["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"].intValue
-                dayForecast.dayTemp = json["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"].intValue
+                dayForecast.minimumTemperature = json["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"].intValue
+                dayForecast.maximumTemperature = json["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"].intValue
                 dayForecast.dayIcon = json["DailyForecasts"][0]["Day"]["Icon"].intValue
                 dayForecast.nightIcon = json["DailyForecasts"][0]["Night"]["Icon"].intValue
                 dayForecast.dayIconPhrase = json["DailyForecasts"][0]["Day"]["IconPhrase"].stringValue
@@ -78,4 +78,25 @@ class WorldWeatherViewModel{
             
         }
     }
+    
+    func getFiveDaysForecasts(_ url: String) -> Promise<[ModelForecast]> {
+        return Promise<[ModelForecast]> {seal -> Void in
+            getAFResponseJSON(url).done { responseJson in
+                
+                let forecastsData = responseJson["DailyForecasts"].array
+                
+                var forecasts: [ModelForecast] = [ModelForecast]()
+                for eachData in forecastsData! {
+                    var forecast: ModelForecast = ModelForecast()
+                    forecast.maximumTemperature = eachData["Temperature"]["Maximum"]["Value"].intValue
+                    forecast.minimumTemperature = eachData["Temperature"]["Minimum"]["Value"].intValue
+                    forecast.date = eachData["Date"].stringValue
+                    forecasts.append(forecast)
+                }
+                seal.fulfill(forecasts)
+            }
+        }
+    }
+    
+    
 }

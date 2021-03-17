@@ -34,7 +34,7 @@ import PromiseKit
  
  */
 
-class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
+class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var lblCity: UILabel!
     
@@ -52,6 +52,8 @@ class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeText()
+        tblView.delegate = self
+        tblView.dataSource = self
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
@@ -65,6 +67,25 @@ class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
         lblHighLow.text = strHighLow
     }
     
+    var forecasts : [ModelForecast] = [ModelForecast]()
+    @IBOutlet weak var tblView: UITableView!
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.forecasts.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = Bundle.main.loadNibNamed("fiveDaysForecastsTableViewCell", owner: self, options: nil)?.first as! fiveDaysForecastsTableViewCell
+        
+        let date = self.forecasts[indexPath.row].date
+        let start = date.index(date.startIndex, offsetBy: 5)
+        let end = date.index(date.endIndex, offsetBy: -16)
+        cell.lblDate.text = String(date[start...end])
+        cell.lblHighTemperature.text = String(self.forecasts[indexPath.row].maximumTemperature)
+        cell.lblLowTemperature.text = String(self.forecasts[indexPath.row].minimumTemperature)
+        
+        return cell
+    }
+    
+    
     //MARK: Location Manager functions
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
@@ -77,8 +98,8 @@ class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
             let lat = currLocation.coordinate.latitude
             let lng = currLocation.coordinate.longitude
             
-            print(lat)
-            print(lng)
+//            print(lat)
+//            print(lng)
             updateWeatherData(lat, lng)
         }
     }
@@ -97,8 +118,8 @@ class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
             let key = city.cityKey
             
             let currentConditionURL = getCurrentConditionURL(key)
-            let oneDayForecastURL = getOneDayURL(key)
-            
+            let oneDayForecastsURL = getOneDayForecastsURL(key)
+            let fiveDaysForecastsUrl = getFiveDaysForecastsUrl(key)
             
             self.viewModel.getCurrentConditions(currentConditionURL).done { currCondition in
                 self.lblCondition.text = currCondition.weatherText
@@ -107,12 +128,23 @@ class WorldWeatherViewController: UIViewController, CLLocationManagerDelegate {
                 print("Error in getting current conditions \(error.localizedDescription)")
             }
             
-            self.viewModel.getOneDayConditions(oneDayForecastURL).done { oneDay in
-                self.lblHighLow.text = "H: \(oneDay.dayTemp)° L: \(oneDay.nightTemp)°"
+            self.viewModel.getOneDayForecasts(oneDayForecastsURL).done { oneDay in
+                self.lblHighLow.text = "H: \(oneDay.maximumTemperature)° L: \(oneDay.minimumTemperature)°"
                 
             }.catch { error in
                 print("Error in getting one day forecast conditions \(error.localizedDescription)")
             }
+            
+            self.viewModel.getFiveDaysForecasts(fiveDaysForecastsUrl).done{ forecastsArray in
+                    self.forecasts.removeAll()
+                    for forecast in forecastsArray {
+                        self.forecasts.append(forecast)
+                    }
+                    self.tblView.reloadData()
+                print("HERE:",self.forecasts)
+                }.catch { error in
+                    print("Error in getting city's maximum and minimum temperature: \(error.localizedDescription)")
+                }
         }
         .catch { error in
             print("Error in getting City Data \(error.localizedDescription)")
