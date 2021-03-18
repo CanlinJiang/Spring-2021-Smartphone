@@ -37,12 +37,15 @@ import PromiseKit
 class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
 
     @IBOutlet weak var lblCity: UILabel!
-    
     @IBOutlet weak var lblCondition: UILabel!
-    
     @IBOutlet weak var lblTemperature: UILabel!
+    @IBOutlet weak var lblcurrentWeatherIcon: UIImageView!
+    @IBOutlet weak var lblMaximum: UILabel!
+    @IBOutlet weak var lblMinimum: UILabel!
+    @IBOutlet weak var lblMaximumIcon: UIImageView!
+    @IBOutlet weak var lblMinimumIcon: UIImageView!
     
-    @IBOutlet weak var lblHighLow: UILabel!
+    
     
     let locationManager = CLLocationManager()
     
@@ -60,11 +63,12 @@ class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func initializeText(){
-        self.title = strHelloWorld
+        self.title = strWorldWeather
         lblCity.text = strCity
         lblCondition.text = strCondition
         lblTemperature.text = strTemperature
-        lblHighLow.text = strHighLow
+        lblMaximum.text = strHighLow
+        lblMinimum.text = "d"
     }
     
     var forecasts : [ModelForecast] = [ModelForecast]()
@@ -74,14 +78,12 @@ class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITable
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = Bundle.main.loadNibNamed("fiveDaysForecastsTableViewCell", owner: self, options: nil)?.first as! fiveDaysForecastsTableViewCell
-        
-        let date = self.forecasts[indexPath.row].date
-        let start = date.index(date.startIndex, offsetBy: 5)
-        let end = date.index(date.endIndex, offsetBy: -16)
-        cell.lblDate.text = String(date[start...end])
-        cell.lblHighTemperature.text = String(self.forecasts[indexPath.row].maximumTemperature)
-        cell.lblLowTemperature.text = String(self.forecasts[indexPath.row].minimumTemperature)
-        
+
+        cell.lblDate.text = self.forecasts[indexPath.row].weekday
+        cell.lblMaximumTemperature.text = String("\(self.forecasts[indexPath.row].maximumTemperature)°")
+        cell.maximumTemperatureIcon.image = UIImage(named: "\(self.forecasts[indexPath.row].dayIcon)-s")
+        cell.lblMinimumTemperature.text = String("\(self.forecasts[indexPath.row].minimumTemperature)°")
+        cell.minimumTemperatureIcon.image = UIImage(named: "\(self.forecasts[indexPath.row].nightIcon)-s")
         return cell
     }
     
@@ -98,8 +100,6 @@ class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITable
             let lat = currLocation.coordinate.latitude
             let lng = currLocation.coordinate.longitude
             
-//            print(lat)
-//            print(lng)
             updateWeatherData(lat, lng)
         }
     }
@@ -120,16 +120,21 @@ class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITable
             let currentConditionURL = getCurrentConditionURL(key)
             let oneDayForecastsURL = getOneDayForecastsURL(key)
             let fiveDaysForecastsUrl = getFiveDaysForecastsUrl(key)
-            
+            // Update current conditions and temperature
             self.viewModel.getCurrentConditions(currentConditionURL).done { currCondition in
                 self.lblCondition.text = currCondition.weatherText
                 self.lblTemperature.text =  "\(currCondition.imperialTemp)°"
+                self.lblcurrentWeatherIcon.image = UIImage(named: "\(currCondition.weatherIcon)-s")
             }.catch { error in
                 print("Error in getting current conditions \(error.localizedDescription)")
             }
-            
+            // Update one day maximum and minimum temperature
             self.viewModel.getOneDayForecasts(oneDayForecastsURL).done { oneDay in
-                self.lblHighLow.text = "H: \(oneDay.maximumTemperature)° L: \(oneDay.minimumTemperature)°"
+                self.lblMaximum.text = "H: \(oneDay.maximumTemperature)°"
+                self.lblMaximumIcon.image = UIImage(named:"\(oneDay.dayIcon)-s")
+                self.lblMinimum.text = "L: \(oneDay.minimumTemperature)°"
+                self.lblMinimumIcon.image = UIImage(named:"\(oneDay.nightIcon)-s")
+                
                 
             }.catch { error in
                 print("Error in getting one day forecast conditions \(error.localizedDescription)")
@@ -141,7 +146,6 @@ class WorldWeatherViewController: UIViewController, UITableViewDelegate, UITable
                         self.forecasts.append(forecast)
                     }
                     self.tblView.reloadData()
-                print("HERE:",self.forecasts)
                 }.catch { error in
                     print("Error in getting city's maximum and minimum temperature: \(error.localizedDescription)")
                 }

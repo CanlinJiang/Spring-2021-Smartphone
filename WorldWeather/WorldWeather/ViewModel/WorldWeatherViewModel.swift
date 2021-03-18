@@ -58,18 +58,20 @@ class WorldWeatherViewModel{
     func getOneDayForecasts(_ url : String) -> Promise<ModelForecast>{
         return Promise<ModelForecast> { seal -> Void in
             
-            getAFResponseJSON(url).done { json in
+            getAFResponseJSON(url).done { forecast in
                 
-                let dayForecast = ModelForecast()
-                dayForecast.headlineText = json["Headline"]["Text"].stringValue
-                dayForecast.minimumTemperature = json["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"].intValue
-                dayForecast.maximumTemperature = json["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"].intValue
-                dayForecast.dayIcon = json["DailyForecasts"][0]["Day"]["Icon"].intValue
-                dayForecast.nightIcon = json["DailyForecasts"][0]["Night"]["Icon"].intValue
-                dayForecast.dayIconPhrase = json["DailyForecasts"][0]["Day"]["IconPhrase"].stringValue
-                dayForecast.nightIconPhrase = json["DailyForecasts"][0]["Night"]["IconPhrase"].stringValue
+                let todayForecast = ModelForecast()
+                todayForecast.headlineText = forecast["Headline"]["Text"].stringValue
+                todayForecast.date = forecast["DailyForecasts"][0]["Date"].stringValue
+                todayForecast.weekday = transferDateToWeek(todayForecast.date)
+                todayForecast.minimumTemperature = forecast["DailyForecasts"][0]["Temperature"]["Minimum"]["Value"].intValue
+                todayForecast.maximumTemperature = forecast["DailyForecasts"][0]["Temperature"]["Maximum"]["Value"].intValue
+                todayForecast.dayIcon = forecast["DailyForecasts"][0]["Day"]["Icon"].intValue
+                todayForecast.nightIcon = forecast["DailyForecasts"][0]["Night"]["Icon"].intValue
+                todayForecast.dayIconPhrase = forecast["DailyForecasts"][0]["Day"]["IconPhrase"].stringValue
+                todayForecast.nightIconPhrase = forecast["DailyForecasts"][0]["Night"]["IconPhrase"].stringValue
 
-                seal.fulfill(dayForecast)
+                seal.fulfill(todayForecast)
             
             }
             .catch { error in
@@ -82,15 +84,18 @@ class WorldWeatherViewModel{
     func getFiveDaysForecasts(_ url: String) -> Promise<[ModelForecast]> {
         return Promise<[ModelForecast]> {seal -> Void in
             getAFResponseJSON(url).done { responseJson in
-                
                 let forecastsData = responseJson["DailyForecasts"].array
-                
                 var forecasts: [ModelForecast] = [ModelForecast]()
                 for eachData in forecastsData! {
                     var forecast: ModelForecast = ModelForecast()
-                    forecast.maximumTemperature = eachData["Temperature"]["Maximum"]["Value"].intValue
-                    forecast.minimumTemperature = eachData["Temperature"]["Minimum"]["Value"].intValue
                     forecast.date = eachData["Date"].stringValue
+                    forecast.weekday = transferDateToWeek(forecast.date)
+                    forecast.minimumTemperature = eachData["Temperature"]["Minimum"]["Value"].intValue
+                    forecast.maximumTemperature = eachData["Temperature"]["Maximum"]["Value"].intValue
+                    forecast.dayIcon = eachData["Day"]["Icon"].intValue
+                    forecast.nightIcon = eachData["Night"]["Icon"].intValue
+                    forecast.dayIconPhrase = eachData["Day"]["IconPhrase"].stringValue
+                    forecast.nightIconPhrase = eachData["Night"]["IconPhrase"].stringValue
                     forecasts.append(forecast)
                 }
                 seal.fulfill(forecasts)

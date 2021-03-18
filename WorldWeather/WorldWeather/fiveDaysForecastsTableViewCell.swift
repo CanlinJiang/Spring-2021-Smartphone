@@ -9,8 +9,10 @@ import UIKit
 
 class fiveDaysForecastsTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
-    @IBOutlet weak var lblHighTemperature: UILabel!
-    @IBOutlet weak var lblLowTemperature: UILabel!
+    @IBOutlet weak var lblMaximumTemperature: UILabel!
+    @IBOutlet weak var lblMinimumTemperature: UILabel!
+    @IBOutlet weak var maximumTemperatureIcon: UIImageView!
+    @IBOutlet weak var minimumTemperatureIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

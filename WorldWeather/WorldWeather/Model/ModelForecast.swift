@@ -10,6 +10,7 @@ import Foundation
 class ModelForecast{
     var headlineText = ""
     var date = ""
+    var weekday = ""
     var minimumTemperature = 0
     var maximumTemperature = 0
     var dayIcon = 0
