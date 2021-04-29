@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D87BB466-9BF7-4EAC-91C7-0C979EEE34A8"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "455BC1A0-47A8-4448-AD62-28766FA2D54F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WorldWeather/ViewModel/WorldWeatherViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "getFiveDaysForecasts(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FCB73B3E-30B2-4B16-94BA-1134EC0295F9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WorldWeather/ViewModel/WorldWeatherViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "getFiveDaysForecasts(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WorldWeather/WorldWeatherViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "WorldWeatherViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - 912e710dc17aef7e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.lblCondition.getter : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - e91128ac1674b72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.lblCondition.setter : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "155">
+               </Location>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - 2cae27a4573b3b6b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.lblCondition.modify : Swift.Optional&lt;__C.UILabel&gt;"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "59">
+               </Location>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - d3858b83be2dfad2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.lblCondition.modify : Swift.Optional&lt;__C.UILabel&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - b8ea4015b1913894"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; WorldWeather.WorldWeatherViewController"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "556">
+               </Location>
+               <Location
+                  uuid = "1860FFC3-1210-4A8C-A9B7-D83CF93AC408 - 387ca9d2be0513ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WorldWeather.WorldWeatherViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;WorldWeather.WorldWeatherViewController&gt;"
+                  moduleName = "WorldWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/littletree/Documents/GitHub/Spring-2021-Smartphone/WorldWeather/WorldWeather/WorldWeatherViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "497">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
